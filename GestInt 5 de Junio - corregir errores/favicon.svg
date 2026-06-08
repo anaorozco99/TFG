@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <circle cx="50" cy="50" r="48" fill="#28597A"/>
-  <circle cx="50" cy="50" r="42" fill="none" stroke="#069DE0" stroke-width="3"/>
-  <rect x="14" y="48" width="72" height="4" fill="#069DE0"/>
-  <text x="50" y="46" font-family="Arial,sans-serif" font-weight="bold" font-size="28"
-        fill="white" text-anchor="middle" dominant-baseline="auto">DM</text>
-  <text x="50" y="62" font-family="Arial,sans-serif" font-weight="bold" font-size="9"
-        fill="#D6EEF8" text-anchor="middle">PAPER CO.</text>
-</svg>
