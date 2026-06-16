@@ -1,0 +1,48 @@
+{
+  "name": "GestInt - Pedido a cliente",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pedido-cliente",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-pedido-cliente",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "pedido-cliente"
+    },
+    {
+      "parameters": {
+        "sendTo": "anaorozcoasensio@gmail.com",
+        "subject": "=✅ Nuevo pedido #{{ $json.body.pedido_id }} — {{ $json.body.cliente }}",
+        "message": "=<p>Se ha confirmado un nuevo pedido a cliente.</p><ul><li><b>Pedido:</b> #{{ $json.body.pedido_id }}</li><li><b>Cliente:</b> {{ $json.body.cliente }}</li><li><b>Total:</b> {{ $json.body.total }} €</li><li><b>Usuario:</b> {{ $json.body.usuario }}</li><li><b>Fecha:</b> {{ $json.body.fecha }}</li></ul><p>— GestInt, Dunder Mifflin Scranton</p>",
+        "options": {}
+      },
+      "id": "gmail-pedido-cliente",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Gmail", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": ["gestint"]
+}

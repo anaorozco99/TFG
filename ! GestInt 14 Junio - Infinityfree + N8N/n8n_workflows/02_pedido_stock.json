@@ -1,0 +1,48 @@
+{
+  "name": "GestInt - Pedido reposición stock",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pedido-stock",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-pedido-stock",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "pedido-stock"
+    },
+    {
+      "parameters": {
+        "sendTo": "anaorozcoasensio@gmail.com",
+        "subject": "=📦 Pedido de stock #{{ $json.body.pedido_id }} confirmado",
+        "message": "=<p>Se ha generado un pedido de reposición de stock.</p><ul><li><b>Pedido:</b> #{{ $json.body.pedido_id }}</li><li><b>Usuario:</b> {{ $json.body.usuario }}</li><li><b>Artículos:</b> {{ $json.body.articulos }}</li><li><b>Total líneas:</b> {{ $json.body.total_lineas }}</li><li><b>Fecha:</b> {{ $json.body.fecha }}</li></ul><p>El pedido llegará en 24 horas.</p><p>— GestInt, Dunder Mifflin Scranton</p>",
+        "options": {}
+      },
+      "id": "gmail-pedido-stock",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Gmail", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": ["gestint"]
+}

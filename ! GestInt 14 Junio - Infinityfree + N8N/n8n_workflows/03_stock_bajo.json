@@ -1,0 +1,48 @@
+{
+  "name": "GestInt - Alerta stock bajo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stock-bajo",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-stock-bajo",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "stock-bajo"
+    },
+    {
+      "parameters": {
+        "sendTo": "anaorozcoasensio@gmail.com",
+        "subject": "=⚠️ Stock bajo: {{ $json.body.producto }}",
+        "message": "=<p><b>ALERTA DE STOCK BAJO</b></p><ul><li><b>Producto:</b> {{ $json.body.producto }}</li><li><b>Cantidad actual:</b> {{ $json.body.cantidad }}</li><li><b>Stock mínimo:</b> {{ $json.body.stock_minimo }}</li><li><b>Fecha:</b> {{ $json.body.fecha }}</li></ul><p>Por favor, genera un pedido de reposición desde GestInt.</p><p>— GestInt, Dunder Mifflin Scranton</p>",
+        "options": {}
+      },
+      "id": "gmail-stock-bajo",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Gmail", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": ["gestint"]
+}
